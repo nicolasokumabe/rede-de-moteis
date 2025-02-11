@@ -1,0 +1,679 @@
+{
+	"info": {
+		"_postman_id": "7f814b0c-bed0-4f90-8f2a-da14e8d9a3ec",
+		"name": "Mock GM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29279522"
+	},
+	"item": [
+		{
+			"name": "Criar Reserva",
+			"item": [
+				{
+					"name": "Criar Reserva",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.environment.set(\"id\", jsonResponse.booking.booking_id);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "o conteudo esta na pasta x api key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"motel_id\": 1234,\r\n  \"room_id\": 5678,\r\n  \"customer\": {\r\n    \"name\": \"João Silva\",\r\n    \"email\": \"joao.silva@email.com\",\r\n    \"phone\": \"+55 11 91234-5678\"\r\n  },\r\n  \"check_in\": \"2025-02-06T14:00:00\",\r\n  \"check_out\": \"2025-02-07T12:00:00\",\r\n  \"payment\": {\r\n    \"method\": \"credit_card\",\r\n    \"card_number\": \"4111111111111111\",\r\n    \"expiration\": \"12/27\",\r\n    \"cvv\": \"123\"\r\n  },\r\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/motel/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"motel",
+								"bookings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Default",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "valor no curl",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"motel_id\": 1234,\r\n  \"room_id\": 5678,\r\n  \"customer\": {\r\n    \"name\": \"João Silva\",\r\n    \"email\": \"joao.silva@email.com\",\r\n    \"phone\": \"+55 11 91234-5678\"\r\n  },\r\n  \"check_in\": \"2025-02-06T14:00:00\",\r\n  \"check_out\": \"2025-02-07T12:00:00\",\r\n  \"payment\": {\r\n    \"method\": \"credit_card\",\r\n    \"card_number\": \"4111111111111111\",\r\n    \"expiration\": \"12/27\",\r\n    \"cvv\": \"123\"\r\n  },\r\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/motel/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"motel",
+										"bookings"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"Reserva criada com sucesso.\",\n  \"booking\": {\n    \"booking_id\": 98765,\n    \"motel_id\": 1234,\n    \"room_id\": 5678,\n    \"customer\": {\n      \"name\": \"João Silva\",\n      \"email\": \"joao.silva@email.com\",\n      \"phone\": \"+55 11 91234-5678\"\n    },\n    \"check_in\": \"2025-02-06T14:00:00\",\n    \"check_out\": \"2025-02-07T12:00:00\",\n    \"payment\": {\n      \"method\": \"credit_card\",\n      \"status\": \"approved\",\n      \"transaction_id\": \"txn_abc123\"\n    },\n    \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Erro do servidor na compra",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 500\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "o conteudo esta na pasta x api key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"motel_id\": 1234,\r\n  \"room_id\": 5678,\r\n  \"customer\": {\r\n    \"name\": \"João Silva\",\r\n    \"email\": \"joao.silva@email.com\",\r\n    \"phone\": \"+55 11 91234-5678\"\r\n  },\r\n  \"check_in\": \"2025-02-06T14:00:00\",\r\n  \"check_out\": \"2025-02-07T12:00:00\",\r\n  \"payment\": {\r\n    \"method\": \"credit_card\",\r\n    \"card_number\": \"0000000000000000\",\r\n    \"expiration\": \"12/27\",\r\n    \"cvv\": \"123\"\r\n  },\r\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/motel/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"motel",
+								"bookings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Default",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "o conteudo esta na pasta x api key",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"motel_id\": 1234,\r\n  \"room_id\": 5678,\r\n  \"customer\": {\r\n    \"name\": \"João Silva\",\r\n    \"email\": \"joao.silva@email.com\",\r\n    \"phone\": \"+55 11 91234-5678\"\r\n  },\r\n  \"check_in\": \"2025-02-06T14:00:00\",\r\n  \"check_out\": \"2025-02-07T12:00:00\",\r\n  \"payment\": {\r\n    \"method\": \"credit_card\",\r\n    \"card_number\": \"0000000000000000\",\r\n    \"expiration\": \"12/27\",\r\n    \"cvv\": \"123\"\r\n  },\r\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/motel/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"motel",
+										"bookings"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Erro interno no servidor ao processar o pagamento. Tente novamente mais tarde.\",\n    \"code\": 500,\n    \"details\": \"Falha na comunicação com o gateway de pagamento.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Reserva sem nome",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 400\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "o conteudo esta na pasta x api key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"motel_id\": 1234,\r\n  \"room_id\": 5678,\r\n  \"customer\": {\r\n    \"name\": \"\",\r\n    \"email\": \"joao.silva@email.com\",\r\n    \"phone\": \"+55 11 91234-5678\"\r\n  },\r\n  \"check_in\": \"2025-02-06T14:00:00\",\r\n  \"check_out\": \"2025-02-07T12:00:00\",\r\n  \"payment\": {\r\n    \"method\": \"credit_card\",\r\n    \"card_number\": \"4111111111111111\",\r\n    \"expiration\": \"12/27\",\r\n    \"cvv\": \"123\"\r\n  },\r\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/motel/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"motel",
+								"bookings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Default",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "o conteudo esta na pasta x api key",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"motel_id\": 1234,\r\n  \"room_id\": 5678,\r\n  \"customer\": {\r\n    \"name\": \"\",\r\n    \"email\": \"joao.silva@email.com\",\r\n    \"phone\": \"+55 11 91234-5678\"\r\n  },\r\n  \"check_in\": \"2025-02-06T14:00:00\",\r\n  \"check_out\": \"2025-02-07T12:00:00\",\r\n  \"payment\": {\r\n    \"method\": \"credit_card\",\r\n    \"card_number\": \"4111111111111111\",\r\n    \"expiration\": \"12/27\",\r\n    \"cvv\": \"123\"\r\n  },\r\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/motel/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"motel",
+										"bookings"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"O campo 'name' é obrigatório.\",\n    \"code\": 400\n}"
+						}
+					]
+				},
+				{
+					"name": "Reserva sem email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 400\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "o conteudo esta na pasta x api key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"motel_id\": 1234,\r\n  \"room_id\": 5678,\r\n  \"customer\": {\r\n    \"name\": \"João Silva\",\r\n    \"email\": \"\",\r\n    \"phone\": \"+55 11 91234-5678\"\r\n  },\r\n  \"check_in\": \"2025-02-06T14:00:00\",\r\n  \"check_out\": \"2025-02-07T12:00:00\",\r\n  \"payment\": {\r\n    \"method\": \"credit_card\",\r\n    \"card_number\": \"4111111111111111\",\r\n    \"expiration\": \"12/27\",\r\n    \"cvv\": \"123\"\r\n  },\r\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/motel/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"motel",
+								"bookings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Default",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "o conteudo esta na pasta x api key",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"motel_id\": 1234,\r\n  \"room_id\": 5678,\r\n  \"customer\": {\r\n    \"name\": \"João Silva\",\r\n    \"email\": \"\",\r\n    \"phone\": \"+55 11 91234-5678\"\r\n  },\r\n  \"check_in\": \"2025-02-06T14:00:00\",\r\n  \"check_out\": \"2025-02-07T12:00:00\",\r\n  \"payment\": {\r\n    \"method\": \"credit_card\",\r\n    \"card_number\": \"4111111111111111\",\r\n    \"expiration\": \"12/27\",\r\n    \"cvv\": \"123\"\r\n  },\r\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/motel/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"motel",
+										"bookings"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"O campo 'email' é obrigatório.\",\n    \"code\": 400\n}"
+						}
+					]
+				},
+				{
+					"name": "Reserva sem dados",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 400\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "o conteudo esta na pasta x api key",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/motel",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"motel"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Default",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "o conteudo esta na pasta x api key",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/motel",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"motel"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"erro\": \"O corpo da requisição é obrigatório\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Buscar Reserva",
+			"item": [
+				{
+					"name": "busca do egendamento",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "o conteudo esta na pasta x api key",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/motel/bookings/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"motel",
+								"bookings",
+								"{{id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Default",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "o conteudo esta na pasta x api key",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/motel/bookings/{{id}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"motel",
+										"bookings",
+										"{{id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"booking_id\": 98765,\n  \"motel_id\": 1234,\n  \"room_id\": 5678,\n  \"customer\": {\n    \"name\": \"João Silva\",\n    \"email\": \"joao.silva@email.com\",\n    \"phone\": \"+55 11 91234-5678\"\n  },\n  \"check_in\": \"2025-02-06T14:00:00\",\n  \"check_out\": \"2025-02-07T12:00:00\",\n  \"payment\": {\n    \"method\": \"credit_card\",\n    \"status\": \"approved\",\n    \"transaction_id\": \"txn_abc123\"\n  },\n  \"special_requests\": \"Quarto com hidromassagem e café da manhã incluso\"\n}\n"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://1fee00c9-3cf5-4aaa-ad0b-7fc826712782.mock.pstmn.io",
+			"disabled": true
+		}
+	]
+}
