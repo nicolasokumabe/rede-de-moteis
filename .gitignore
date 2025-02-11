@@ -1,0 +1,14 @@
+# Logs
+logs
+*.logs
+
+# Environment
+.env*
+
+# Report
+*.html
+*.htm
+*.xml
+
+# Dependency directory
+node_modules
