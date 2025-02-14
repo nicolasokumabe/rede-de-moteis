@@ -1,11 +1,10 @@
 describe('Deletar Usuário - Serverest API', () => {
-  let token;
-  let userId;
+  let token
+  let userId
   const userEmail = Cypress.env('USER_EMAIL')
   const userPassword = Cypress.env('USER_PASSWORD')
 
   before(() => {
-    // Criar um usuário via API antes do teste
     cy.request({
       method: 'POST',
       url: 'https://serverest.dev/usuarios',
@@ -13,17 +12,17 @@ describe('Deletar Usuário - Serverest API', () => {
         nome: 'Usuário Teste',
         email: userEmail,
         password: userPassword,
-        administrador: 'true' // Definir como admin
+        administrador: 'true'
       },
       failOnStatusCode: false
     }).then((response) => {
       if (response.status === 201) {
-        cy.log('Usuário criado com sucesso');
+        cy.log('Usuário criado com sucesso')
       } else {
-        cy.log('Usuário já existente, continuando com o teste');
+        cy.log('Usuário já existente, continuando com o teste')
       }
-    });
-  });
+    })
+  })
 
   it('Deve fazer login e obter o token', () => {
     cy.request({
@@ -34,10 +33,10 @@ describe('Deletar Usuário - Serverest API', () => {
         password: userPassword
       }
     }).then((response) => {
-      expect(response.status).to.eq(200);
-      token = response.body.authorization;
-    });
-  });
+      expect(response.status).to.eq(200)
+      token = response.body.authorization
+    })
+  })
 
   it('Deve buscar o ID do usuário', () => {
     cy.request({
@@ -45,11 +44,11 @@ describe('Deletar Usuário - Serverest API', () => {
       url: 'https://serverest.dev/usuarios',
       headers: { Authorization: token }
     }).then((response) => {
-      const user = response.body.usuarios.find(u => u.email === userEmail);
-      expect(user).to.not.be.undefined;
-      userId = user._id;
-    });
-  });
+      const user = response.body.usuarios.find(u => u.email === userEmail)
+      expect(user).to.not.be.undefined
+      userId = user._id
+    })
+  })
 
   it('Deve deletar o usuário cadastrado', () => {
     cy.request({
@@ -57,10 +56,10 @@ describe('Deletar Usuário - Serverest API', () => {
       url: `https://serverest.dev/usuarios/${userId}`,
       headers: { Authorization: token }
     }).then((response) => {
-      expect(response.status).to.eq(200);
-      expect(response.body.message).to.eq('Registro excluído com sucesso');
-    });
-  });
+      expect(response.status).to.eq(200)
+      expect(response.body.message).to.eq('Registro excluído com sucesso')
+    })
+  })
 
   it('Deve validar que o usuário foi removido', () => {
     cy.request({
@@ -69,8 +68,8 @@ describe('Deletar Usuário - Serverest API', () => {
       headers: { Authorization: token },
       failOnStatusCode: false
     }).then((response) => {
-      expect(response.status).to.eq(400);
-      expect(response.body.message).to.eq('Usuário não encontrado');
-    });
-  });
-});
+      expect(response.status).to.eq(400)
+      expect(response.body.message).to.eq('Usuário não encontrado')
+    })
+  })
+})

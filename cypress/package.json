@@ -4,7 +4,7 @@
   "description": "Teste Guia de Moteis",
   "main": "index.js",
   "scripts": {
-    "dev": "npx cypress open",
+    "test": "npx cypress run",
     "allure-chro": "cypress run --browser chrome --env allure=true",
     "allure-fire": "npx cypress run --browser firefox --env allure=true",
     "allure:repo": "allure generate allure-results --clean -o allure-report",
@@ -18,6 +18,9 @@
   "license": "ISC",
   "devDependencies": {
     "@shelex/cypress-allure-plugin": "^2.40.2",
-    "cypress": "^14.0.3"
+    "cypress": "^14.0.3",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "cypress-multi-reporters": "^2.0.5",
+    "mocha-junit-reporter": "^2.2.1"
   }
 }

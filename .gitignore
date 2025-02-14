@@ -7,7 +7,6 @@ logs
 cypress.env.json
 
 # Report
-*.html
 *.htm
 *.xml
 
