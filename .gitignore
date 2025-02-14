@@ -4,6 +4,7 @@ logs
 
 # Environment
 .env*
+cypress.env.json
 
 # Report
 *.html
